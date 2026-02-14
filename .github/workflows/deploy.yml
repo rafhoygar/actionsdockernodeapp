@@ -14,11 +14,6 @@ jobs:
         run: |
           echo "${{ secrets.EC2_KEY }}" > key.pem
           chmod 600 key.pem
-      - name: Deploy Container
-        run: |
-          ssh -o StrictHostKeyChecking=no -i key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-            docker pull ${{ secrets.DOCKER_IMAGE }}
-            docker stop app || true
-            docker rm app || true
-            docker run -d --name app -p 80:8080 ${{ secrets.DOCKER_IMAGE }}
-          EOF
+      - name: Deploy
+        run:
+          ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@rafaelhoyoiescamp.duckdns.org "cd /app && docker compose pull && docker compose up -d"
