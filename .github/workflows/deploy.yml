@@ -16,4 +16,4 @@ jobs:
           chmod 600 key.pem
       - name: Deploy
         run:
-          ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@rafaelhoyoiescamp.duckdns.org "cd /app && docker compose pull && docker compose up -d"
+          ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@rafaelhoyoiescamp.duckdns.org "cd /app && docker-compose pull && docker-compose up -d"
